@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
+import QuestionsTable from "./QuestionsTable";
 const CreateQuize = () => {
     return (
         <div className="container my-4 w-50 border border-dark">
@@ -29,7 +30,8 @@ const CreateQuize = () => {
                 </div>
                 <h3 className='text-center'>Questions</h3>
                 <div className="container my-4 h-50 w-80  border border-dark ">
-                    <div className=" d-flex justify-content-end">
+                    <QuestionsTable></QuestionsTable>
+                    <div className="my-4 d-flex justify-content-end">
                         <Button className='btn-primary '>Add Question</Button>
                     </div>
                 </div>

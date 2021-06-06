@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
+import ChoiceTable from "./ChoiceTable";
 const Questions = () => {
     return (
         <div className="container my-4 w-50 border border-dark">
@@ -32,7 +33,8 @@ const Questions = () => {
 
                 <h3 className='text-center'>Choices</h3>
                 <div className="container my-4 h-50 w-80  border border-dark">
-                    <div className="d-flex justify-content-end">
+                    <ChoiceTable></ChoiceTable>
+                    <div className="d-flex justify-content-end my-2">
                         <Button className='btn-primary'>Add Choice</Button>
                     </div>
                 </div>

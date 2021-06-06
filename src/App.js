@@ -8,7 +8,7 @@ import Choice from './Choice';
 function App() {
   return (
     <div className="container">
-      <CreateQuize></CreateQuize>
+      <Questions></Questions>
     </div>
   );
 }
