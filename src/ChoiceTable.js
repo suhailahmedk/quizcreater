@@ -1,20 +1,31 @@
 import React from "react";
 import { Table, Button } from "react-bootstrap";
-import { BsFillTrashFill,BsPencil,BsCheck } from "react-icons/bs"
-const ChoiceTable = () => {
+import { BsFillTrashFill, BsPencil, BsCheck } from "react-icons/bs"
+import Icon from "./Icon";
+
+const ChoiceTable = ({choicesList}) => {
+    const data=()=>{
+        console.log("in table");
+        console.log(choicesList);
+    }
+    data();
     return (
-            <Table striped bordered hover>
-                <thead>
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                    <th>Text</th>
+                    <th>is Correct</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    choicesList.map((item) => (
                     <tr>
-                        <th>Text</th>
-                        <th>is Correct</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Mark is very good</td>
-                        <td><div className="text-success text-center"><BsCheck></BsCheck></div></td>
+                        <td>{item.choice}</td>
+                        <td>
+                            <div className="text-success text-center"><Icon value={item.isCorrect}></Icon></div>
+                        </td>
                         <td>
                             <div className="mx-4">
                                 <Button variant="light "><BsPencil></BsPencil></Button>
@@ -22,9 +33,10 @@ const ChoiceTable = () => {
                             </div>
                         </td>
                     </tr>
-                    
-                </tbody>
-            </Table>
+                    ))
+                }
+            </tbody>
+        </Table>
 
 
     )
