@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Form, Button } from "react-bootstrap";
 
 class Choice extends React.Component {
@@ -12,9 +12,9 @@ class Choice extends React.Component {
         const addChoice = () => {
             this.props.data.setChoice(this.state.textChoice,this.state.isCorrect);
         }
-        // const cancelChoice = () => {
-        //     this.props.data.setChoice(this.state.textChoice,this.state.isCorrect);
-        // }
+         const cancelChoice = () => {
+            this.props.data2.cancelChoice();
+        }
         const handleChangeChoice = (evt) => {
             this.setState({textChoice: evt.target.value.substr(0, 100)});
         }
@@ -36,7 +36,7 @@ class Choice extends React.Component {
                     </div>
 
                     <div className="my-3 d-flex justify-content-end">
-                        <Button className="mx-2 btn-light" variant="outline-dark"> Cancel</Button>
+                        <Button className="mx-2 btn-light" variant="outline-dark" onClick={() => cancelChoice()}> Cancel</Button>
                         <Button className="btn-pramary mx-2 " onClick={() => addChoice()}>Add Choice</Button>
                     </div>
                 </Form>

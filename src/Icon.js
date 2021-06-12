@@ -1,8 +1,7 @@
 import React from "react";
 import {  BsCheck,BsX } from "react-icons/bs"
-let value = 0;
 const Icon = ({ value }) => {
-    if (value == false) {
+    if (value === false) {
         return (
             
             <div className="text-danger text-center"><BsX></BsX></div>

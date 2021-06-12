@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import CreateQuize from './CreateQuize';
@@ -8,49 +7,109 @@ import {useState} from 'react';
 
 function App() {
     const [flag, setflag] = useState(0);
-    const [QuizArray, setQuizArray] = useState([]);
+    const [QuestionArray, setQuestionArray] = useState([]);
     const [ChoicesArray,setChoicesArry]=useState([]);
-    let tempArray;
-    let tempQuestion;
+    const [tempQuizArray, setTempQuizArray] = useState([]);
+    const [tempQuestionArray,setTempQuestionArray]=useState([]);
+    const [Quize,setQuize]=useState([]);
     let tempchoices=[];
+   
+    let cancelQuize=()=>{
+        setChoicesArry([])
+        setTempQuizArray([]);
+        setQuestionArray([]);
+        setTempQuestionArray([]);
+        setflag(0);
+    }
+    let createQuize=()=>{
+        let obj=tempQuizArray;
+        let temp={title:obj.title,points:obj.points,timeDuration:obj.timeDuration,date:obj.date,questions:QuestionArray};
+
+        setQuize(temp);
+        setChoicesArry([])
+        setTempQuizArray([]);
+        setQuestionArray([]);
+        setTempQuestionArray([]);
+        console.log(temp);
+        setflag(0);
+    }
     let addQuestions = (title,points,timeDuration,date) => {
-        alert(title+" "+points+" "+timeDuration+" "+date);
+        let temp1=tempQuizArray;
+        if(title===""){
+            title=temp1.title;
+        }
+        if(points===""){
+            points=temp1.points;
+        }
+        if(timeDuration===""){
+            timeDuration=temp1.timeDuration;
+        }
+        if(date===""){
+            date=temp1.date;
+        }
         let temp={title,points,timeDuration,date};
-        tempArray=temp;
-        console.log(tempArray);
+        setTempQuizArray(temp);
         setflag(1);
     }
     let addChoices = (question,type,points) => {
-        alert(question+" "+type+" "+points);
+        let temp1=tempQuestionArray;
+        if(question===""){
+            question=temp1.question;
+        }
+        if(type===""){
+            type=temp1.type;
+        }
+        if(points===""){
+            points=temp1.points;
+        }
         let temp={question,type,points};
-        tempQuestion=temp;
+        setTempQuestionArray(temp);
         setflag(2);
-        console.log(tempQuestion);
     }
     let setChoice = (choice,isCorrect) => {
-        alert(choice+" "+isCorrect);
         let temp={choice,isCorrect};
         tempchoices=ChoicesArray;
         tempchoices.push(temp);
         setChoicesArry(tempchoices);
         setflag(1);
     }
-    if (flag == 0) {
+    let cancelChoice=()=>{
+        setflag(1);
+    }
+    let setQuestion=()=>{
+        let temp=QuestionArray;
+        let tempquestion=tempQuestionArray;
+        let obj={question:tempquestion.question,type:tempquestion.type,points:tempquestion.points,choices:ChoicesArray};
+        temp.push(obj);
+        setQuestionArray(temp);
+        setTempQuestionArray([]);
+        setTempQuestionArray([]);
+        setChoicesArry([]);
+        setflag(0);
+    }
+    let cancelQuestion=()=>{
+        setTempQuestionArray([]);
+        setTempQuestionArray([]);
+        setChoicesArry([]);
+        setflag(0);
+    }
+    if (flag === 0) {
         return (
             <div className="container">
-                <CreateQuize data={{addQuestions: addQuestions.bind(this)}}></CreateQuize>
+                <CreateQuize tempQuizArray={tempQuizArray} questionsList={QuestionArray} data={{addQuestions: addQuestions.bind(this)}} data2={{createQuize: createQuize.bind(this)}} data3={{cancelQuize: cancelQuize.bind(this)}}></CreateQuize>
             </div>
         );
-    } else if (flag == 1) {
+    } else if (flag === 1) {
         return (
             <div className="container">
-                <Questions choicesList={ChoicesArray} data={{addChoices: addChoices.bind(this)}}></Questions>
+                <Questions tempQuestion={tempQuestionArray} choicesList={ChoicesArray} data={{addChoices: addChoices.bind(this)}} data2={{setQuestion:setQuestion.bind(this)}} data3={{cancelQuestion:cancelQuestion.bind(this)}}></Questions>
             </div>
         );
-    } else if (flag == 2) {
+    } else if (flag === 2) {
         return (
             <div className="container">
-                <Choice  data={{setChoice: setChoice.bind(this)}}></Choice>
+                
+                <Choice  data={{setChoice: setChoice.bind(this)}} data2={{cancelChoice: cancelChoice.bind(this)}}></Choice>
             </div>
         );
     }

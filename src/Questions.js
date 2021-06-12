@@ -1,15 +1,39 @@
-import { extend } from "jquery";
 import React from "react";
 import { Form, Button } from "react-bootstrap";
 import ChoiceTable from "./ChoiceTable";
-
 class Questions extends React.Component {
-
+ 
+    constructor(props){
+        super(props);
+        this.state = {
+            
+            textQuestion: "",
+            textType: "",
+            textPoints:""
+          };
+        
+    }
     render() {
+        const cancelQuestion=()=>{
+            this.props.data3.cancelQuestion();
+        }
         const addChoices = () => {
+            if(this.state.textQuestion===""){
+                this.setState({textQuestion: this.props.tempQuestion.question}); 
+            }
+            if(this.state.textPoints===""){
+                this.setState({textPoints: this.props.tempQuestion.points}); 
+            }
+            if(this.state.textType===""){
+                this.setState({textType: this.props.tempQuestion.type}); 
+            }
+           
             this.props.data.addChoices(this.state.textQuestion, this.state.textType, this.state.textPoints);
-            console.log("this is lisqwt");
-            console.log(this.props.choicesList);
+            
+        }
+        const addQuestion = () => {
+            this.props.data2.setQuestion();
+    
         }
         const handleChangeQuestion = (evt) => {
             this.setState({ textQuestion: evt.target.value.substr(0, 100) });
@@ -26,7 +50,7 @@ class Questions extends React.Component {
                 <Form>
                     <Form.Group controlId="question">
                         <Form.Label><h1>Question</h1></Form.Label>
-                        <Form.Control as="textarea" rows={3} placeholder="Add Question..." onChange={handleChangeQuestion} />
+                        <Form.Control as="textarea" rows={3} defaultValue={this.props.tempQuestion.question} placeholder="Add Question..." onChange={handleChangeQuestion} />
                     </Form.Group>
 
                     <div className="row">
@@ -47,7 +71,7 @@ class Questions extends React.Component {
                         <div className="col">
                             <Form.Group controlId="points">
                                 <Form.Label>Points</Form.Label>
-                                <Form.Control type="text" onChange={handleChangePoints} />
+                                <Form.Control type="text" defaultValue={this.props.tempQuestion.points} onChange={handleChangePoints} />
                             </Form.Group>
                         </div>
                     </div>
@@ -60,8 +84,8 @@ class Questions extends React.Component {
                         </div>
                     </div>
                     <div className="my-3 d-flex justify-content-end">
-                        <Button className="mx-2 btn-light" variant="outline-dark"> Cancel</Button>
-                        <Button className="btn-pramary mx-2 ">Create</Button>
+                        <Button className="mx-2 btn-light" variant="outline-dark"  onClick={() => cancelQuestion()}> Cancel</Button>
+                        <Button className="btn-pramary mx-2 " onClick={() => addQuestion()}>Create</Button>
                     </div>
                 </Form>
 

@@ -1,14 +1,10 @@
 import React from "react";
 import { Table, Button } from "react-bootstrap";
-import { BsFillTrashFill, BsPencil, BsCheck } from "react-icons/bs"
+import { BsFillTrashFill, BsPencil } from "react-icons/bs"
 import Icon from "./Icon";
 
 const ChoiceTable = ({choicesList}) => {
-    const data=()=>{
-        console.log("in table");
-        console.log(choicesList);
-    }
-    data();
+   
     return (
         <Table striped bordered hover>
             <thead>
