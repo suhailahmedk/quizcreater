@@ -4,6 +4,7 @@ import CreateQuize from './CreateQuize';
 import Questions from './Questions';
 import Choice from './Choice';
 import {useState} from 'react';
+import axios from 'axios';
 
 function App() {
     const [flag, setflag] = useState(0);
@@ -32,6 +33,17 @@ function App() {
         setTempQuestionArray([]);
         console.log(temp);
         setflag(0);
+
+        axios.post('http://localhost:8080/savequiz', temp)
+        .then (function (response) {
+
+            console.log(response);
+            
+            })
+            
+            .catch(function (error) { console.log(error);
+            console.log(error);
+            });
     }
     let addQuestions = (title,points,timeDuration,date) => {
         let temp1=tempQuizArray;
